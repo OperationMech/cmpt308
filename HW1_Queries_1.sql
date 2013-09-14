@@ -25,3 +25,32 @@ FROM orders;
 SELECT name, city
 FROM customers
 WHERE city <> 'Dallas';
+
+--List the names of agents in New York or Newark.
+SELECT name
+FROM agents
+WHERE city = 'New York'
+OR city = 'Newark';
+
+--List all product data for thoes not in New York or Newark and USD 1.00 or less.
+SELECT *
+FROM products
+WHERE priceusd <= 1.00
+AND (city <> 'New York' AND city <> 'Newark');
+
+--List all data for orders in Jan or March
+SELECT *
+FROM orders
+WHERE mon = 'jan'
+OR mon = 'mar';
+
+--List all data for orders in Feb less than USD 100.
+SELECT *
+FROM orders
+WHERE dollars < 100.00
+AND mon = 'feb';
+
+--List all orders for customer C005.
+SELECT *
+FROM orders
+WHERE cid = 'c005';
