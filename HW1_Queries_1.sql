@@ -23,5 +23,4 @@ FROM products;
 
 SELECT ordno, aid
 WHERE *
-FROM oeders;
-
+FROM orders;
