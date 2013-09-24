@@ -74,7 +74,7 @@ SELECT c.cid, c.discount
   ( SELECT a.aid
       FROM agents a
      WHERE a.city = 'Dallas'
-	    OR a.city = 'Duluth'
+        OR a.city = 'Duluth'
   )
 );
 
@@ -85,7 +85,7 @@ SELECT name, discount
 (  SELECT discount
      FROM customers
     WHERE city = 'Dallas'
-	   OR city = 'Kyoto'
+       OR city = 'Kyoto'
 );
 
 --Find the IDs of customers who have placed orders but not with a03.
