@@ -32,15 +32,17 @@ SELECT DISTINCT o1.pid
       FROM customers c
      WHERE c.city = 'Kyoto'
   )
-);
+)
+ORDER BY o1.pid ASC;
 
-/*Get the pids of all products ordered by an agent
+/*Get the pid(s) of all product(s) ordered by an agent
   who has at least one order from Kyoto (join)*/
 SELECT DISTINCT o1.pid
   FROM orders o1
  INNER JOIN orders o2 ON o1.aid = o2.aid
  INNER JOIN customers c ON o2.cid = c.cid
- WHERE c.city = 'Kyoto';
+ WHERE c.city = 'Kyoto'
+ ORDER BY o1.pid ASC;
 
 --Name(s) of customer(s) who have not placed any orders (subquery).
 SELECT c.name
@@ -68,4 +70,11 @@ SELECT DISTINCT c.name, a.name, c.city
   FROM agents a , customers c
  WHERE c.city = a.city;
   
---  
+--Name of customer(s) who live in the city with the least product(s) made.
+( SELECT p1.city , count(p1.pid)
+    FROM products p1
+   WHERE p1.city in
+(   SELECT DISTINCT p2.city
+     FROM products p2
+)
+GROUP BY p1.city
