@@ -71,10 +71,18 @@ SELECT DISTINCT c.name, a.name, c.city
  WHERE c.city = a.city;
   
 --Name of customer(s) who live in the city with the least product(s) made.
-( SELECT p1.city , count(p1.pid)
-    FROM products p1
-   WHERE p1.city in
-(   SELECT DISTINCT p2.city
-     FROM products p2
-)
-GROUP BY p1.city
+SELECT c.name, c.city
+  FROM customers c
+ WHERE c.city in
+( SELECT city
+   FROM
+(  SELECT p1.city, count(p1.pid)
+     FROM products p1
+    WHERE p1.city in
+  (  SELECT DISTINCT p2.city
+       FROM products p2
+  )
+    GROUP BY p1.city  
+    limit 1 
+  ) subquery
+);
