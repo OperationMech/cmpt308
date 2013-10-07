@@ -106,10 +106,11 @@ SELECT c.name, c.city
 );
 
 --Name of customer(s) who live in any city with the most product(s) made.
+-- broken missed a check
 SELECT c.name, c.city
   FROM customers c
  WHERE c.city in
-( SELECT city
+( SELECT city, max(p1.pid)
    FROM
 (  SELECT p1.city, count(p1.pid)
      FROM products p1
@@ -118,7 +119,7 @@ SELECT c.name, c.city
        FROM products p2
   )
     GROUP BY p1.city
-    ORDER BY p1.city asc  
+    ORDER BY p1.city asc 
   ) subquery
 );
 
@@ -133,6 +134,7 @@ SELECT p.name, p.priceusd
        FROM products p2
   )
 );
+
 --
 	
     
