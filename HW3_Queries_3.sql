@@ -87,7 +87,7 @@ SELECT c.name, c.city
   ) subquery
 );
 
---Name of customer(s) who live in the city with the least product(s) made.
+--Name of customer(s) who live in a city with the most product(s) made.
 SELECT c.name, c.city
   FROM customers c
  WHERE c.city in
@@ -102,5 +102,22 @@ SELECT c.name, c.city
     GROUP BY p1.city
     ORDER BY p1.city asc 
     LIMIT 1  
+  ) subquery
+);
+
+--Name of customer(s) who live in any city with the most product(s) made.
+SELECT c.name, c.city
+  FROM customers c
+ WHERE c.city in
+( SELECT city
+   FROM
+(  SELECT p1.city, count(p1.pid)
+     FROM products p1
+    WHERE p1.city in
+  (  SELECT DISTINCT p2.city
+       FROM products p2
+  )
+    GROUP BY p1.city
+    ORDER BY p1.city asc  
   ) subquery
 );
