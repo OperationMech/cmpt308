@@ -121,3 +121,18 @@ SELECT c.name, c.city
     ORDER BY p1.city asc  
   ) subquery
 );
+
+--List the product(s) whose price is above the average in USD.
+SELECT p.name, p.priceusd
+  FROM products p
+ WHERE p.pid in
+(  SELECT p1.pid
+     FROM products p1
+    WHERE p1.priceusd >
+  (  SELECT avg(p2.priceusd)
+       FROM products p2
+  )
+);
+--
+	
+    
